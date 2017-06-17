@@ -1,8 +1,8 @@
 # physical-node
 
-This is a set of scripts to let you set up an Althea physical node on a fresh LEDE 17.01 instance. It creates the necessary network configuration and installs various tunneling, payment, and routing daemons.
+This is a set of scripts to let you set up an Althea physical node on a fresh LEDE (OpenWRT) 17.01 instance. It creates the necessary network configuration and installs various tunneling, payment, and routing daemons.
 
-It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which does similar configuration for OpenWRT to be used on embedded devices.
+It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which does similar configuration for Ubuntu.
 
 Read the [whitepaper](http://altheamesh.com/documents/whitepaper.pdf) to see what Althea is all about.
 
