@@ -2,7 +2,6 @@
 
 my_private_key=$1
 my_ip=$2
-
 exit_public_key=$3
 exit_ip=$4
 
