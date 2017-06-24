@@ -4,6 +4,51 @@ This is a set of scripts to let you set up an Althea physical node on a fresh LE
 
 It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which does similar configuration for Ubuntu.
 
+# Installing
+
+1. Plug an ethernet cable into one of the 4 numbered ports in the back of your WD MyNet N600. Plug the other end into your computer.
+
+1. Give 192.168.1.10/24 to the ethernet interface attached to the N600.
+    `ip addr add 192.168.1.10/24 dev <your interface>`
+
+1. Turn the router off, and hold down the reset switch (accesible through a pin hole on the underside of the router). Turn the router back on and wait about 15 seconds until the power LED on the front starts flashing slowly.
+
+1. Browse to http://192.168.1.1. There should be a dialog allowing you to select a firmware image to upload to the router. For some reason, this can be really fickle. Try to bringing the interface down and back up again, re-adding 192.168.1.10/24, etc. until the upload dialog shows up.
+
+1. Download the latest snapshot of [LEDE for the N600](https://downloads.lede-project.org/snapshots/targets/ar71xx/generic/lede-ar71xx-generic-mynet-n600-squashfs-factory.bin), and upload it to the router.
+
+1. The router will now flash itself with the firmware. One easy way to check when it is finished is to run `ping 192.168.1.1` and wait until the pings are consistently getting through.
+
+1. Copy the contents of this folder to the home directory of the router.
+    `scp -r ./* root@192.168.1.1:~/`
+
+1. If you have a wired connection to the internet, plug this into the port on the back of the router labeled "Internet". Try `ping 8.8.8.8` to see if your connection is working. If you do not have a wired connection, you will need to put the router into client mode on one of its radios. This will allow it to use a nearby wi-fi hotspot to connect to the internet. To do this, run `sh client-mode.sh <ssid of the network> <type of encryption (usually 'psk' or 'psk2'> <wifi password>`
+
+1. Run `sh initial-setup.sh <your tunnel ip>`. If you don't know what to use for `<your tunnel ip>`, use 10.0.1.1/24.
+
+1. You'll have to reboot the router for the configuration to take effect. This shouldn't be necessary, but it is. If things have gone well, you should be able to run 
+    `wg` and get something like
+    ```
+    interface: wg0
+      public key: 7TNSB84j9afBmKhzknXk+beuY2UMrNETwkUffmFx/wg=
+      private key: (hidden)
+      listening port: 54147
+    ```
+
+    and run `ip addr show wg0` and get something like
+    ```
+    8: wg0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1420 qdisc noqueue state UNKNOWN qlen 1
+        link/[65534] 
+        inet 10.0.1.1/24 brd 10.0.1.255 scope global wg0
+          valid_lft forever preferred_lft forever
+    ```
+
+1. Set up the [exit-node](https://github.com/althea-mesh/exit-node) if you haven't already and come back when that's done.
+
+1. Add the exit node to your router's configuration by running `sh add-exit-node.sh <exit node publickey> <exit node endpoint IP>`. The exit node public key can be found in the home directory of the exit node you just set up. The exit node endpoint IP is simply the public IP of the server your exit node is running on.
+
+1. Reboot the router again.
+
 Read the [whitepaper](http://altheamesh.com/documents/whitepaper.pdf) to see what Althea is all about.
 
 ## Progress
