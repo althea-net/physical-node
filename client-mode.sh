@@ -21,5 +21,6 @@ uci set wireless.@wifi-iface[0].ssid="$ssid"
 uci set wireless.@wifi-iface[0].encryption="$encryption"
 uci set wireless.@wifi-iface[0].key="$key"
 
+uci commit wireless
 ifup wan
 wifi
