@@ -24,7 +24,7 @@ It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which d
 
 1. If you have a wired connection to the internet, plug this into the port on the back of the router labeled "Internet". Try `ping 8.8.8.8` to see if your connection is working. If you do not have a wired connection, you will need to put the router into client mode on one of its radios. This will allow it to use a nearby wi-fi hotspot to connect to the internet. To do this, run `sh client-mode.sh <ssid of the network> <type of encryption (usually 'psk' or 'psk2'> <wifi password>`
 
-1. Run `sh initial-setup.sh <your tunnel ip>`. If you don't know what to use for `<your tunnel ip>`, use 10.0.1.1/24.
+1. Run `sh initial-setup.sh`.
 
 1. You'll have to reboot the router for the configuration to take effect. This shouldn't be necessary, but it is. If things have gone well, you should be able to run 
     `wg` and get something like
@@ -38,16 +38,28 @@ It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which d
     and run `ip addr show wg0` and get something like
     ```
     8: wg0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1420 qdisc noqueue state UNKNOWN qlen 1
-        link/[65534] 
-        inet 10.0.1.1/24 brd 10.0.1.255 scope global wg0
-          valid_lft forever preferred_lft forever
+        link/[65534]
     ```
 
 1. Set up the [exit-node](https://github.com/althea-mesh/exit-node) if you haven't already and come back when that's done.
 
-1. Add the exit node to your router's configuration by running `sh add-exit-node.sh <exit node publickey> <exit node endpoint IP>`. The exit node public key can be found in the home directory of the exit node you just set up. The exit node endpoint IP is simply the public IP of the server your exit node is running on.
+1. Add the exit node to your router's configuration by running `sh add-exit-node.sh <exit node publickey> <exit node endpoint IP> <your IP> <your netmask> <your CIDR>`. The exit node public key can be found in the home directory of the exit node you just set up. The exit node endpoint IP is simply the public IP of the server your exit node is running on. Your IP is the IP that identifies you to the exit node. Your netmask is the size of the subnet your physical node will give out to clients. Your CIDR is the previous two values in CIDR notation.
 
-1. Reboot the router again.
+1. Reboot the router again. If all has gone well, you should be able to run `wg` and get something like:
+    ```
+    interface: wg0
+        public key: yR74L62IiS1yhtO3T8m1gEo0I3FeB2KoYIE2xWN62Ug=
+        private key: (hidden)
+        listening port: 34081
+
+    peer: M27zzpg7VgjG9ulNojE2IjmZFrDYl4wnvChFykqd23Y=
+        endpoint: 107.170.234.148:51820
+        allowed ips: 0.0.0.0/0
+        latest handshake: 5 seconds ago
+        transfer: 3.64 KiB received, 8.17 KiB sent
+        persistent keepalive: every 25 seconds
+    ```
+    "latest handshake" indicates the last time your router was able to make contact with the exit node's tunnel. You should also be able to ping destinations on the internet. You should also be able to connect to the "LEDE" wifi network on a laptop and phone and use the internet.
 
 Read the [whitepaper](http://altheamesh.com/documents/whitepaper.pdf) to see what Althea is all about.
 
