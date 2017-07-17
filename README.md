@@ -13,7 +13,7 @@ It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which d
 
 1. Turn the router off, and hold down the reset switch (accesible through a pin hole on the underside of the router). Turn the router back on and wait about 15 seconds until the power LED on the front starts flashing slowly.
 
-1. Browse to http://192.168.1.1. There should be a dialog allowing you to select a firmware image to upload to the router. For some reason, this can be really fickle. Try to bringing the interface down and back up again, re-adding 192.168.1.10/24, etc. until the upload dialog shows up.
+1. Browse to http://192.168.1.1. There should be a dialog allowing you to select a firmware image to upload to the router. For some reason, this can be really fickle. Try to bringing the interface down and back up again, re-adding 192.168.1.10/24, etc. until the upload dialog shows up. You may need to turn your computer's wifi off, because lots of wifi routers use 192.168.1.1.
 
 1. Download the latest snapshot of [LEDE for the N600](https://downloads.lede-project.org/snapshots/targets/ar71xx/generic/lede-ar71xx-generic-mynet-n600-squashfs-factory.bin), and upload it to the router.
 
