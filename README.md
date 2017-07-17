@@ -45,7 +45,7 @@ It goes along with [exit-node](https://github.com/althea-mesh/exit-node) which d
 
 1. Add the exit node to your router's configuration by running `sh add-exit-node.sh <exit node publickey> <exit node endpoint IP> <your IP> <your netmask> <your CIDR>`. The exit node public key can be found in the home directory of the exit node you just set up. The exit node endpoint IP is simply the public IP of the server your exit node is running on. Your IP is the IP that identifies you to the exit node. If you don't know what to use here, use 192.168.23.1. Your netmask is the size of the subnet your physical node will give out to clients. If you don't know what to use here, use 255.255.255.0. Your CIDR is the previous two values in CIDR notation. If you don't know what to use here, use 192.168.23.1/24.
 
-1. Reboot the router again. If all has gone well, you should be able to run `wg` and get something like:
+1. Reboot the router again. You will need to ssh into 192.168.23.1 or whatever you set in the step above. If all has gone well, you should be able to run `wg` and get something like:
     ```
     interface: wg0
         public key: yR74L62IiS1yhtO3T8m1gEo0I3FeB2KoYIE2xWN62Ug=
